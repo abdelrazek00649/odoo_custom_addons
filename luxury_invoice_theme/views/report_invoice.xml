@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="luxury_invoice_template" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='page']" position="replace">
+            <div class="page" style="border: 10px solid #1a1a1a; padding: 30px; background-color: #ffffff; font-family: 'Arial';">
+                <div class="text-center" style="border-bottom: 3px solid #d4af37; margin-bottom: 20px; padding-bottom: 10px;">
+                    <h1 style="color: #1a1a1a; font-weight: bold; letter-spacing: 5px; text-transform: uppercase;">Luxury Invoice</h1>
+                </div>
+                
+                <div class="row">
+                    <div class="col-6">
+                        <h4 style="color: #d4af37; font-weight: bold;">Billed To:</h4>
+                        <div t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' style="font-size: 1.1rem;"/>
+                    </div>
+                    <div class="col-6 text-end">
+                        <h4 style="color: #d4af37; font-weight: bold;">Invoice Details:</h4>
+                        <p style="font-size: 1.1rem;"><strong>No:</strong> <span t-field="o.name"/></p>
+                        <p style="font-size: 1.1rem;"><strong>Date:</strong> <span t-field="o.invoice_date"/></p>
+                    </div>
+                </div>
+
+                <table class="table table-sm mt-5" style="border-top: 2px solid #1a1a1a;">
+                    <thead>
+                        <tr style="background-color: #1a1a1a; color: white;">
+                            <th class="text-start">Description</th>
+                            <th class="text-end">Quantity</th>
+                            <th class="text-end">Unit Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.invoice_line_ids" t-as="line" style="border-bottom: 1px solid #eee;">
+                            <td><span t-field="line.name"/></td>
+                            <td class="text-end"><span t-field="line.quantity"/></td>
+                            <td class="text-end"><span t-field="line.price_unit"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+    </template>
+</odoo>
